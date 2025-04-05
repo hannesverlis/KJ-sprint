@@ -1,0 +1,24 @@
+func RemoveElementsInRange(arr []float64, from, to int) []float64 {
+	// Ensure correct order of indices
+	if from > to {
+		from, to = to, from
+	}
+
+	// Handle out-of-bounds indices
+	if from < 0 {
+		from = 0
+	}
+	if to >= len(arr) {
+		to = len(arr) - 1
+	}
+	// Check if the resulting range is empty
+	if from > to {
+		return arr // Return the original array if no elements should be removed
+	}
+
+	// Create a new slice with elements outside the range
+	result := make([]float64, 0, len(arr)-(to-from))
+	result = append(result, arr[:from]...) // Add elements before 'from'
+	result = append(result, arr[to+1:]...) // Add elements after 'to'
+	return result
+}
